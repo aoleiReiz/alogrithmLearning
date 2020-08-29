@@ -1,5 +1,7 @@
 package midlevel;
 
+import java.util.Arrays;
+
 public class DP {
 
     //跳跃游戏, beats 6.5%
@@ -59,5 +61,15 @@ public class DP {
             }
         }
         return dp[m-1][n-1];
+    }
+
+    public int coinChange(int[] coins, int amount) {
+        Arrays.sort(coins);
+        int ret = 0;
+        for (int i = coins.length - 1; i >= 0 ; i--) {
+            ret += amount / coins[i];
+            amount = amount % coins[i];
+        }
+        return amount == 0 ? ret : -1;
     }
 }
