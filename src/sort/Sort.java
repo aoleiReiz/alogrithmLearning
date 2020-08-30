@@ -150,15 +150,24 @@ public class Sort {
 
     // 选择子数组起始位置作为partition元素
     private int partition1(Comparable []a, int lo, int hi){
-        Comparable v = a[lo];
-        int i = lo, j = hi+1;
-        while (true){
-            while (comp(a[++i], v) <= 0) if (i == hi) break;
-            while (comp(a[--j], v) > 0) if (j == lo) break;
-            if (i >= j) break;
-            exch(a, i, j);
+//        Comparable v = a[lo];
+//        int i = lo, j = hi+1;
+//        while (true){
+//            while (comp(a[++i], v) <= 0) if (i == hi) break;
+//            while (comp(a[--j], v) > 0) if (j == lo) break;
+//            if (i >= j) break;
+//            exch(a, i, j);
+//        }
+//        exch(a, lo, j);
+//        return j;
+        int j = lo;
+        for (int i = lo + 1; i <= hi ; i++) {
+            if (comp(a[i], a[lo]) < 0){
+                j++;
+                exch(a, i, j);
+            }
         }
-        exch(a, lo, j);
+        exch(a, j, lo);
         return j;
     }
 
