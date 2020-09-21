@@ -27,7 +27,7 @@ public class SortTest {
         sortHelper.testSort("insertionSortImprove", arr4);
         sortHelper.testSort("bubbleSort", arr5);
         sortHelper.testSort("mergeSortBU",arr6);
-        sortHelper.testSort("quickSort1",arr7);
+        sortHelper.testSort("quickSort2",arr7);
 
         System.out.println("Nearly Sorted arr");
         Integer []nearlySortedArr = sortHelper.generateNearlySortedNumbers(50000, 300);
@@ -43,6 +43,6 @@ public class SortTest {
         sortHelper.testSort("mergeSortBU", nearlySortedArr6);
         sortHelper.testSort("insertionSortImprove", nearlySortedArr4);
         sortHelper.testSort("bubbleSort", nearlySortedArr5);
-        sortHelper.testSort("quickSort1", nearlySortedArr7);
+        sortHelper.testSort("quickSort2", nearlySortedArr7);
     }
 }

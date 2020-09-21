@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Random;
+
 public class Sort {
 
     public boolean isSorted(Comparable []a){
@@ -147,7 +149,6 @@ public class Sort {
         quickSort1(a, lo, p - 1);
         quickSort1(a, p + 1, hi);
     }
-
     // 选择子数组起始位置作为partition元素
     private int partition1(Comparable []a, int lo, int hi){
 //        Comparable v = a[lo];
@@ -160,6 +161,8 @@ public class Sort {
 //        }
 //        exch(a, lo, j);
 //        return j;
+        int p = (new Random()).nextInt(hi - lo + 1) + lo;
+        exch(a, lo, p);
         int j = lo;
         for (int i = lo + 1; i <= hi ; i++) {
             if (comp(a[i], a[lo]) < 0){
@@ -171,5 +174,37 @@ public class Sort {
         return j;
     }
 
+    private int partition2(Comparable []a, int lo, int hi){
+        int p = (new Random()).nextInt(hi - lo + 1) + lo;
+        exch(a, lo, p);
+        //a[lo+1,...i-1] <= v; a[j+1,.....hi]>=v
+        int i = lo+1 , j = hi;
+        while (true){
+            while (i <= j && comp(a[i],a[lo]) < 0){
+                i++;
+            }
+            while (j >= i && comp(a[j],a[lo])>0){
+                j--;
+            }
+            if (i >=j) break;
+            exch(a,i,j);
+            i++;
+            j--;
+        }
+        exch(a,lo,j);
+        return j;
+    }
+
+    public void quickSort2(Comparable []a){
+        quickSort2(a, 0, a.length-1);
+    }
+    private void quickSort2(Comparable []a, int lo, int hi){
+        if (lo >= hi){
+            return;
+        }
+        int p = partition2(a, lo, hi);
+        quickSort2(a, lo, p - 1);
+        quickSort2(a, p + 1, hi);
+    }
 
 }
