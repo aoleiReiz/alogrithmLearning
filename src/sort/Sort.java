@@ -207,4 +207,37 @@ public class Sort {
         quickSort2(a, p + 1, hi);
     }
 
+
+    public void quickSort3(Comparable []a){
+        quickSort3(a, 0, a.length-1);
+    }
+    private void quickSort3(Comparable []a, int lo, int hi){
+        if (lo >= hi){
+            return;
+        }
+        int p = partition3(a, lo, hi);
+        quickSort3(a, lo, p - 1);
+        quickSort3(a, p + 1, hi);
+    }
+    private int partition3(Comparable []a, int lo, int hi){
+        int p = (new Random()).nextInt(hi - lo + 1) + lo;
+        exch(a, lo, p);
+        //a[lo+1,...lt] < v;a[lt + 1, ..., i-1]==v ;a[gt,.....hi]>v
+        int i = lo+1 , j = hi;
+        while (true){
+            while (i <= j && comp(a[i],a[lo]) < 0){
+                i++;
+            }
+            while (j >= i && comp(a[j],a[lo])>0){
+                j--;
+            }
+            if (i >=j) break;
+            exch(a,i,j);
+            i++;
+            j--;
+        }
+        exch(a,lo,j);
+        return j;
+    }
+
 }
