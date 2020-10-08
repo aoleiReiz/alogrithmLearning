@@ -109,4 +109,35 @@ public class Solution {
         }
         return -1;
     }
+
+    private boolean isBadVersion(int n){
+        return n >= 4;
+    }
+    public int firstBadVersion(int n) {
+        int l = 1, r = n;
+        while (l < r){
+            int mid = (r -l)/ 2 + l;
+            boolean flag = isBadVersion(mid);
+            if (flag){
+                r = mid;
+            }else {
+                l = mid + 1;
+            }
+        }
+        if (isBadVersion(l)) return l;
+        return -1;
+    }
+
+    public int findPeakElement(int[] nums) {
+        int l = 0, r = nums.length - 1;
+        while (l < r){
+            int mid = (r - l) / 2 + l;
+            if (nums[mid] > nums[mid + 1]){
+                r = mid;
+            }else{
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
 }
