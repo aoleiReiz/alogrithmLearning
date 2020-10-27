@@ -1,8 +1,6 @@
 package daily;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class DailySolution {
 
@@ -67,5 +65,79 @@ public class DailySolution {
             cur = cur.next;
         }
         cur.next = null;
+    }
+
+    public boolean isLongPressedName(String name, String typed) {
+        if (null == name && null == typed) return true;
+        if (null != name && name.equals(typed)) return true;
+        if (null != name && name.length() > typed.length()) return false;
+        if (null == name) return false;
+        int i = 0, j = 0;
+        while (i < name.length() && j < typed.length()){
+            if (name.charAt(i) != typed.charAt(j))
+                return false;
+            if (i == name.length() - 1 && j==typed.length()-1){
+                return true;
+            }else if (i == name.length() - 1 && j<typed.length() - 1){
+                while (j < typed.length() && typed.charAt(j) == name.charAt(i))
+                    j++;
+                if (j == typed.length())
+                    return true;
+                return false;
+            }else{
+                if (name.charAt(i) == name.charAt(i+1)){
+                    i++;
+                    j++;
+                }else {
+
+                    while (j < typed.length() && typed.charAt(j) == name.charAt(i))
+                        j++;
+                    if (j == typed.length())
+                        return false;
+                    i ++;
+                }
+            }
+        }
+        return true;
+    }
+
+    public List<Integer> partitionLabels(String S) {
+        int []last = new int[26];
+        int length = S.length();
+        for (int i = 0; i < length; i++) {
+            last[S.charAt(i)-'a'] = i;
+        }
+        List<Integer> partition = new ArrayList<Integer>();
+        int start = 0, end = 0;
+        for (int i = 0; i < length; i++) {
+            end = Math.max(end, last[S.charAt(i) - 'a']);
+            if (i == end) {
+                partition.add(end - start + 1);
+                start = end + 1;
+            }
+        }
+
+        return partition;
+    }
+
+    public boolean uniqueOccurrences(int[] arr) {
+        Map<Integer,Integer>countMap = new HashMap<>();
+        for (int i : arr) {
+            if (countMap.containsKey(i)){
+                int c = countMap.get(i) + 1;
+                countMap.put(i, c);
+            }else{
+                countMap.put(i, 1);
+            }
+        }
+        Set<Integer>set = new HashSet<>();
+        for (int i : countMap.values()){
+            if (set.contains(i)){
+                return false;
+            }else {
+                set.add(i);
+            }
+        }
+        return true;
     }
 }
