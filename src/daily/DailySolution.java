@@ -140,4 +140,22 @@ public class DailySolution {
         }
         return true;
     }
+
+    private int sum = 0;
+
+    public int sumNumbers(TreeNode root) {
+        if(null == root) return 0;
+        sumNumbersHelper(root, "");
+        return sum;
+    }
+
+    private void sumNumbersHelper(TreeNode node, String curSum){
+        curSum += node.val;
+        if (node.left != null) {
+            sumNumbersHelper(node.left, curSum);
+
+        }
+        sumNumbersHelper(node.right, curSum);
+        curSum = curSum.substring(0, curSum.length()-1);
+    }
 }
