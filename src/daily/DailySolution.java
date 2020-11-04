@@ -1,5 +1,7 @@
 package daily;
 
+import com.sun.source.doctree.StartElementTree;
+
 import java.util.*;
 
 public class DailySolution {
@@ -157,5 +159,85 @@ public class DailySolution {
         }
         sumNumbersHelper(node.right, curSum);
         curSum = curSum.substring(0, curSum.length()-1);
+    }
+
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Map<Integer, List<List<String>>> map = new HashMap<Integer, List<List<String>>>();
+        List<List<String>> wordBreaks = backtrack(s, s.length(), new HashSet<String>(wordDict), 0, map);
+        List<String> breakList = new LinkedList<String>();
+        for (List<String> wordBreak : wordBreaks) {
+            breakList.add(String.join(" ", wordBreak));
+        }
+        return breakList;
+    }
+
+    public List<List<String>> backtrack(String s, int length, Set<String>wordSet, int index, Map<Integer,List<List<String>>>map){
+        if (!map.containsKey(index)){
+            List<List<String>> wordBreaks = new LinkedList<>();
+            if (index == length){
+                wordBreaks.add(new LinkedList<>());
+            }
+            for (int i = index+1; i <= length ; i++) {
+                String word = s.substring(index, i);
+                if (wordSet.contains(word)){
+                    List<List<String>> nextWordBreaks = backtrack(s, length, wordSet, i, map);
+                    for (List<String>nextWordBreak : nextWordBreaks){
+                        LinkedList<String> wordBreak = new LinkedList<>(nextWordBreak);
+                        wordBreak.offerFirst(word);
+                        wordBreaks.add(wordBreak);
+                    }
+                }
+            }
+            map.put(index, wordBreaks);
+        }
+        return map.get(index);
+    }
+
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String>wordSet = new HashSet<>(wordList);
+        Set<Character>characterSet = new HashSet<>();
+        Set<String>visited = new HashSet<>();
+
+        for (String word : wordList){
+            for (char c : word.toCharArray()){
+                characterSet.add(c);
+            }
+        }
+        Queue<String>queue = new ArrayDeque<>();
+        visited.add(beginWord);
+        for (int i = 0; i < beginWord.length(); i++) {
+            for (char c : characterSet){
+                String newWord = beginWord.substring(0,i) + c + beginWord.substring(i+1);
+                if (newWord.equals(endWord)){
+                    return 2;
+                }
+                if (wordSet.contains(newWord)) {
+                    queue.add(newWord);
+                    visited.add(newWord);
+                }
+            }
+        }
+
+        int count = 0;
+        while (!queue.isEmpty()){
+            count++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String curWord = queue.remove();
+                for (int j = 0; j < curWord.length(); j++) {
+                    for (char c : characterSet){
+                        String newWord = curWord.substring(0,j) + c + curWord.substring(j+1);
+                        if (newWord.equals(endWord)){
+                            return count + 2;
+                        }
+                        if (wordSet.contains(newWord) && !visited.contains(newWord)) {
+                            queue.add(newWord);
+                            visited.add(newWord);
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }
