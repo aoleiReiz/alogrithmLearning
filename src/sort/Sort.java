@@ -1,5 +1,7 @@
 package sort;
 
+import heap.MaxHeap;
+
 import java.util.Random;
 
 public class Sort {
@@ -233,5 +235,42 @@ public class Sort {
         exch(a, lt, lo);
         sort3ways(a, lo, lt - 1);
         sort3ways(a, gt, hi);
+    }
+
+    public void heapSort(Comparable []a){
+        MaxHeap maxHeap = new MaxHeap<>();
+        for (int i = 0; i < a.length; i++) {
+            maxHeap.add(a[i]);
+        }
+        for (int i = a.length-1; i >=0;i--){
+            a[i] = maxHeap.extractMax();
+        }
+    }
+
+    public void heapSort2(Comparable []a){
+        if (a.length <= 1){
+            return;
+        }
+        for (int i = (a.length-2)/2; i >=0 ; i--) {
+            siftDown(a, i, a.length);
+        }
+        for (int i = a.length-1; i >= 0; i--) {
+            exch(a,0,i);
+            siftDown(a,0,i);
+        }
+    }
+    // data[0,n）最大堆中 k索引siftdown
+    private void siftDown(Comparable []a, int k, int n){
+        while (2*k+1<n){
+            int j = 2*k + 1;
+            if (j+1 < n && a[j+1].compareTo(a[j])>0){
+                j++;
+            }
+            if (a[k].compareTo(a[j])>=0){
+                break;
+            }
+            exch(a, j,k);
+            k = j;
+        }
     }
 }

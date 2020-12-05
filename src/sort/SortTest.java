@@ -21,6 +21,8 @@ public class SortTest {
         Integer []arr5 = Arrays.copyOf(arr, arr.length);
         Integer []arr7 = Arrays.copyOf(arr, arr.length);
         Integer []arr8 = Arrays.copyOf(arr, arr.length);
+        Integer []arr9 = Arrays.copyOf(arr, arr.length);
+        Integer []arr10 = Arrays.copyOf(arr, arr.length);
         System.out.println("Random arr");
         sortHelper.testSort("selectionSort", arr);
         sortHelper.testSort("insertionSort", arr2);
@@ -30,6 +32,8 @@ public class SortTest {
         sortHelper.testSort("mergeSortBU",arr6);
         sortHelper.testSort("quickSort2",arr7);
         sortHelper.testSort("quickSort3",arr8);
+        sortHelper.testSort("heapSort",arr9);
+        sortHelper.testSort("heapSort2",arr10);
 
         System.out.println("Nearly Sorted arr");
         Integer []nearlySortedArr = sortHelper.generateNearlySortedNumbers(50000, 300);
@@ -40,6 +44,8 @@ public class SortTest {
         Integer []nearlySortedArr6 = Arrays.copyOf(nearlySortedArr,nearlySortedArr.length);
         Integer []nearlySortedArr7 = Arrays.copyOf(nearlySortedArr,nearlySortedArr.length);
         Integer []nearlySortedArr8 = Arrays.copyOf(nearlySortedArr,nearlySortedArr.length);
+        Integer []nearlySortedArr9 = Arrays.copyOf(nearlySortedArr,nearlySortedArr.length);
+        Integer []nearlySortedArr10 = Arrays.copyOf(nearlySortedArr,nearlySortedArr.length);
         sortHelper.testSort("selectionSort", nearlySortedArr);
         sortHelper.testSort("insertionSort", nearlySortedArr2);
         sortHelper.testSort("mergeSort", nearlySortedArr3);
@@ -48,5 +54,7 @@ public class SortTest {
         sortHelper.testSort("bubbleSort", nearlySortedArr5);
         sortHelper.testSort("quickSort2", nearlySortedArr7);
         sortHelper.testSort("quickSort3", nearlySortedArr8);
+        sortHelper.testSort("heapSort", nearlySortedArr9);
+        sortHelper.testSort("heapSort2", nearlySortedArr10);
     }
 }
