@@ -240,4 +240,36 @@ public class DailySolution {
         }
         return 0;
     }
+
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer>set = new HashSet<>();
+        for (int i : nums){
+            if (set.contains(i))
+                return true;
+            else
+                set.add(i);
+        }
+        return false;
+    }
+
+
+    public boolean confusingNumber(int N) {
+        Map<Character, Character>map = new HashMap<>();
+        map.put('0', '0');
+        map.put('1', '1');
+        map.put('6','9');
+        map.put('8','8');
+        map.put('9','6');
+        String strN = N + "";
+        StringBuilder sb = new StringBuilder();
+        for (char c : strN.toCharArray()){
+            if (!map.containsKey(c)){
+                return false;
+            }
+            sb.append(map.get(c));
+        }
+        if (sb.reverse().toString().equals(strN))
+            return false;
+        return true;
+    }
 }
